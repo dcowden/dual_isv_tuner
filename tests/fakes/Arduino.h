@@ -11,6 +11,7 @@ constexpr int SERIAL_8N1 = 0x800001c;
 extern int switchLevel;
 inline void pinMode(int, int) {}
 inline int digitalRead(int) { return switchLevel; }
+inline unsigned long millis() { return 0; }
 
 class HardwareSerial {
 public:
@@ -26,6 +27,7 @@ public:
         started = true; baud = speed; rx = rxPin; tx = txPin;
     }
     void setDebugOutput(bool) {}
+    int printf(const char*, ...) { return 0; }
     int available() { return static_cast<int>(input.size()); }
     int read() {
         if (input.empty()) return -1;
